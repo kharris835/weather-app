@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="src/styles.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Weather</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <form id="search-form">
+            <div class="row">
+              <div class="col-7">
+                <input
+                  type="text"
+                  id="city-input"
+                  ;
+                  placeholder="Search for a city..."
+                  class="w-100 form-control"
+                  autocomplete="off"
+                  ;
+                  autofocus="on"
+                  ;
+                />
+              </div>
+              <div class="col-5">
+                <button
+                  type="submit"
+                  id="city-submit-btn"
+                  class="btn btn-dark mr-1"
+                >
+                  Search
+                </button>
+                <button
+                  type="submit"
+                  id="city-location-btn"
+                  class="btn location-btn"
+                >
+                  Current Location
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <div class="row mt-5 align-items-center">
+            <div class="col-4 initial-weather-icon">
+              <img src="images/sun.svg" alt="Sunny weather" width="120px" />
+            </div>
+            <div class="col-4">
+              <h1 class="main-temperature mb-0">62ºF</h1>
+              <h2 class="city mb-0">Boulder</h2>
+              <div class="format-date"></div>
+              <div id="weather-description">Sunny</div>
+            </div>
+            <div class="col-4">
+              <div id="weather-overview-details"></div>
+              <ul>
+                <li>
+                  <span>Humidity:</span>
+                  <span id="humidity" class="color">40%</span>
+                </li>
+                <li>
+                  <span>Precipitation:</span>
+                  <span class="color">5%</span>
+                </li>
+                <li>
+                  <span>Wind:</span>
+                  <span id="wind" class="color">6mph</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="row mt-5 ml-5 mr-5">
+            <div class="col future-day">
+              <div class="day">Fri</div>
+              <div>
+                <img
+                  src="images/sun.svg"
+                  alt="Sunny weather"
+                  width="35px"
+                  class="mt-1 mb-2"
+                />
+              </div>
+              <div class="temperature">H:62</div>
+              <div class="temperature">L:54</div>
+            </div>
+            <div></div>
+            <div class="col future-day">
+              <div class="day">Sat</div>
+              <div>
+                <img
+                  src="images/cloud.svg"
+                  alt="Sunny weather"
+                  width="35px"
+                  class="mt-1 mb-2"
+                />
+              </div>
+              <div class="temperature">H:53</div>
+              <div class="temperature">L:48</div>
+            </div>
+            <div class="col future-day">
+              <div class="day">Sun</div>
+              <div>
+                <img
+                  src="images/sun.svg"
+                  alt="Sunny weather"
+                  width="35px"
+                  class="mt-1 mb-2"
+                />
+              </div>
+              <div class="temperature">H:65</div>
+              <div class="temperature">L:59</div>
+            </div>
+            <div class="col future-day">
+              <div class="day">Mon</div>
+              <div>
+                <img
+                  src="images/storm.svg"
+                  alt="Sunny weather"
+                  width="35px"
+                  class="mt-1 mb-2"
+                />
+              </div>
+              <div class="temperature">H:66</div>
+              <div class="temperature">L:60</div>
+            </div>
+            <div class="col future-day">
+              <div class="day">Tues</div>
+              <div>
+                <img
+                  src="images/sun.svg"
+                  alt="Sunny weather"
+                  width="35px"
+                  class="mt-1 mb-2"
+                />
+              </div>
+              <div class="temperature">H:62</div>
+              <div class="temperature">L:57</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
+</html>
