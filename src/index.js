@@ -92,6 +92,36 @@ function handleTempDetails(response) {
   let weatherDescription = response.data.weather[0].description;
   let currentWeatherDesc = document.querySelector("#weather-description");
   currentWeatherDesc.innerHTML = `${weatherDescription}`;
+
+  let weatherIcon = response.data.weather[0].icon;
+  let currentWeatherIcon = document.querySelector("#main-weather-icon");
+  if (weatherIcon == "01d" || weatherIcon == "01n") {
+    currentWeatherIcon.setAttribute("src", "images/sun.svg");
+  }
+  if (weatherIcon == "02d" || weatherIcon == "02n") {
+    currentWeatherIcon.setAttribute("src", "images/partly_cloudy.svg");
+  }
+  if (weatherIcon == "03d" || weatherIcon == "03n") {
+    currentWeatherIcon.setAttribute("src", "images/cloud.svg");
+  }
+  if (weatherIcon == "04d" || weatherIcon == "04n") {
+    currentWeatherIcon.setAttribute("src", "images/cloud.svg");
+  }
+  if (weatherIcon == "09d" || weatherIcon == "09n") {
+    currentWeatherIcon.setAttribute("src", "images/raining.svg");
+  }
+  if (weatherIcon == "10d" || weatherIcon == "10n") {
+    currentWeatherIcon.setAttribute("src", "images/raining.svg");
+  }
+  if (weatherIcon == "11d" || weatherIcon == "11n") {
+    currentWeatherIcon.setAttribute("src", "images/storm.svg");
+  }
+  if (weatherIcon == "13d" || weatherIcon == "13n") {
+    currentWeatherIcon.setAttribute("src", "images/snowing.svg");
+  }
+  if (weatherIcon == "50d" || weatherIcon == "50n") {
+    currentWeatherIcon.setAttribute("src", "images/mist.svg");
+  }
 }
 
 function requestLocation(event) {

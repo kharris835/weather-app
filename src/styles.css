@@ -10,7 +10,7 @@ ul {
 .card {
   background: rgba(169, 93, 240, 0.1);
 }
-.initial-weather-icon {
+.main-weather-icon {
   text-align: right;
 }
 .temperature {
