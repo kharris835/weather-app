@@ -39,6 +39,6 @@ ul {
   position: relative;
   top: -30px;
 }
-#weather-description {
+#weather-description::first-letter {
   text-transform: capitalize;
 }
