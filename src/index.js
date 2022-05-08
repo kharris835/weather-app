@@ -30,7 +30,6 @@ function formatDate() {
 let dateElement = document.querySelector(".format-date");
 dateElement.innerHTML = formatDate();
 
-
 function onSubmitCity(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input").value.trim();
@@ -89,7 +88,7 @@ function handleTempDetails(response) {
   let wind = Math.round(response.data.wind.speed);
   let currentWind = document.querySelector("#wind");
   currentWind.innerHTML = `${wind}mph`;
-  let weatherDescription = response.data.weather[0].main;
+  let weatherDescription = response.data.weather[0].description;
   let currentWeatherDesc = document.querySelector("#weather-description");
   currentWeatherDesc.innerHTML = `${weatherDescription}`;
 }
