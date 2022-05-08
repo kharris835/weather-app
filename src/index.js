@@ -12,17 +12,18 @@ function formatDate() {
   ];
   let currentDayOfWeek = daysOfWeek[now.getDay()];
 
-  let currentHour = now.getHours();
-  if (currentHour < 10) {
-    currentHour = `0${currentHour}`;
-  }
+  let hours = now.getHours();
+  let ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  let currentHour = hours % 12 || 12;
 
   let currentMinute = now.getMinutes();
   if (currentMinute < 10) {
     currentMinute = `0${currentMinute}`;
   }
 
-  let currentDate = `${currentDayOfWeek} ${currentHour}:${currentMinute}`;
+  let currentDate = `${currentDayOfWeek} ${currentHour}:${currentMinute} ${ampm}`;
   console.log(currentDate);
   return currentDate;
 }
