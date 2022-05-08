@@ -34,3 +34,8 @@ ul {
 .footer {
   font-size: small;
 }
+.units {
+  font-size: 1.2rem;
+  position: relative;
+  top: -30px;
+}
