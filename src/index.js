@@ -70,7 +70,7 @@ function handleTemperature(response) {
   let temperature = Math.round(response.data.main.temp);
   console.log(`${temperature}ºC`);
   let currentTemp = document.querySelector(".main-temperature");
-  currentTemp.innerHTML = `${temperature}ºF`;
+  currentTemp.innerHTML = `${temperature}`;
 }
 
 function handleCity(response) {
