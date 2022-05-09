@@ -67,8 +67,12 @@ function handleUserLocation(position) {
 }
 
 function handleTemperature(response) {
-  let temperature = Math.round(response.data.main.temp);
-  console.log(`${temperature}ºC`);
+  fahrenheitTemperature = response.data.main.temp;
+  celciusTemperature = Math.round(((fahrenheitTemperature - 32) * 5) / 9);
+  let temperature = Math.round(fahrenheitTemperature);
+  console.log(`${temperature}ºF`);
+  console.log(fahrenheitTemperature);
+  console.log(celciusTemperature);
   let currentTemp = document.querySelector(".main-temperature");
   currentTemp.innerHTML = `${temperature}`;
 }
@@ -132,14 +136,23 @@ function requestLocation(event) {
 let cityLocationBtn = document.querySelector("#city-location-btn");
 cityLocationBtn.addEventListener("click", requestLocation);
 
-// function onChangeTemp() {
-//   if (displayTemp.innerHTML.includes("F")) {
-//     let tempCelcius = "19ºC";
-//     displayTemp.innerHTML = tempCelcius;
-//   } else {
-//     displayTemp.innerHTML = "62ºF";
-//   }
-// }
+let fahrenheitTemperature = "ABC";
+let celciusTemperature = "abc";
 
-// let displayTemp = document.querySelector(".main-temperature");
-// displayTemp.addEventListener("click", onChangeTemp);
+function displayCelciusTemp(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector(".main-temperature");
+  temperatureElement.innerHTML = celciusTemperature;
+}
+
+function displayFahrenheitTemp(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector(".main-temperature");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+let celciusLink = document.querySelector("#celcius-link");
+celciusLink.addEventListener("click", displayCelciusTemp);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemp);
