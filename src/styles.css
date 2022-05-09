@@ -42,3 +42,13 @@ ul {
 #weather-description::first-letter {
   text-transform: capitalize;
 }
+
+.active {
+  color: black;
+  cursor: default;
+}
+
+.active:hover {
+  color: black;
+  text-decoration: none;
+}

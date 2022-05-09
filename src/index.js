@@ -34,9 +34,13 @@ dateElement.innerHTML = formatDate();
 function onSubmitCity(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input").value.trim();
+  getWeather(cityInput);
+}
+
+function getWeather(city) {
   let apiKey = "b5b56bf4012bed80cd4ce11f2dda7ff2";
   let units = "imperial";
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=${units}`;
+  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(url).then(function (response) {
     handleCity(response);
     handleTemperature(response);
@@ -136,18 +140,22 @@ function requestLocation(event) {
 let cityLocationBtn = document.querySelector("#city-location-btn");
 cityLocationBtn.addEventListener("click", requestLocation);
 
-let fahrenheitTemperature = "ABC";
-let celciusTemperature = "abc";
+let fahrenheitTemperature = 0;
+let celciusTemperature = 0;
 
 function displayCelciusTemp(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector(".main-temperature");
+  fahrenheitLink.classList.remove("active");
+  celciusLink.classList.add("active");
   temperatureElement.innerHTML = celciusTemperature;
 }
 
 function displayFahrenheitTemp(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector(".main-temperature");
+  fahrenheitLink.classList.add("active");
+  celciusLink.classList.remove("active");
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
@@ -156,3 +164,5 @@ celciusLink.addEventListener("click", displayCelciusTemp);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemp);
+
+getWeather("Boulder");
