@@ -37,14 +37,19 @@ function onSubmitCity(event) {
   getWeather(cityInput);
 }
 
+let apiKey = "b5b56bf4012bed80cd4ce11f2dda7ff2";
+let units = "imperial";
+
 function getWeather(city) {
-  let apiKey = "b5b56bf4012bed80cd4ce11f2dda7ff2";
-  let units = "imperial";
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(url).then(function (response) {
-    handleCity(response);
-    handleTemperature(response);
-    handleTempDetails(response);
+    displayCity(response);
+    displayTemperature(response);
+    displayWeatherDetails(response);
+  });
+  let forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
+  axios.get(forecastURL).then(function (response) {
+    displayForecast(response);
   });
 }
 
@@ -52,25 +57,23 @@ let citySubmitBtn = document.querySelector("#city-submit-btn");
 citySubmitBtn.addEventListener("click", onSubmitCity);
 
 function getTemperature(latitude, longitude) {
-  let apiKey = "b5b56bf4012bed80cd4ce11f2dda7ff2";
-  let units = "imperial";
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
   axios.get(url).then(function (response) {
-    handleCity(response);
-    handleTemperature(response);
-    handleTempDetails(response);
+    displayCity(response);
+    displayTemperature(response);
+    displayWeatherDetails(response);
   });
 }
 
 function getForecast(latitude, longitude) {
-  let apiKey = "b5b56bf4012bed80cd4ce11f2dda7ff2";
-  let units = "imperial";
   let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
   axios.get(url).then(displayForecast);
 }
+
 function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
-  console.log(response.data);
+  // TODO: pull API forecast data here
+  console.log("Forecast data", response.data);
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
 
   let forecastHTML = `<div class="row mt-5 ml-5 mr-5 mb-2">`;
@@ -78,24 +81,24 @@ function displayForecast(response) {
     forecastHTML =
       forecastHTML +
       `
-        <div class="col future-day">
-          <div class="day">
-            ${day}
-          </div>
-          <img
-            src="images/sun.svg"
-            alt=""
-            width="35px"
-            class="mt-1 mb-2"
-          />
+    <div class="col future-day">
+    <div class="day">
+    ${day}
+    </div>
+    <img
+    src="images/sun.svg"
+    alt=""
+    width="35px"
+    class="mt-1 mb-2"
+    />
           <div class="temperature">
             H:<span class="max-temp">62</span>º
           </div>
           <div class="temperature">
-            L:<span class="min-temp">54</span>º
+          L:<span class="min-temp">54</span>º
           </div>
-        </div>
-      `;
+          </div>
+          `;
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
@@ -110,7 +113,7 @@ function handleUserLocation(position) {
   getForecast(latitude, longitude);
 }
 
-function handleTemperature(response) {
+function displayTemperature(response) {
   fahrenheitTemperature = response.data.main.temp;
   celciusTemperature = Math.round(((fahrenheitTemperature - 32) * 5) / 9);
   let temperature = Math.round(fahrenheitTemperature);
@@ -121,14 +124,14 @@ function handleTemperature(response) {
   currentTemp.innerHTML = `${temperature}`;
 }
 
-function handleCity(response) {
+function displayCity(response) {
   let city = response.data.name;
   console.log(city);
   let currentCity = document.querySelector(".city");
   currentCity.innerHTML = city;
 }
 
-function handleTempDetails(response) {
+function displayWeatherDetails(response) {
   console.log(response.data);
   let humidity = response.data.main.humidity;
   let currentHumidity = document.querySelector("#humidity");
@@ -172,27 +175,27 @@ function handleTempDetails(response) {
   }
 }
 
-function requestLocation(event) {
-  event.preventDefault();
+function requestLocation() {
   navigator.geolocation.getCurrentPosition(handleUserLocation);
 }
 
-let cityLocationBtn = document.querySelector("#city-location-btn");
-cityLocationBtn.addEventListener("click", requestLocation);
+let cityLocationBtn = document.querySelector("#current-location-btn");
+cityLocationBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  requestLocation();
+});
 
 let fahrenheitTemperature = 0;
 let celciusTemperature = 0;
 
-function displayCelciusTemp(event) {
-  event.preventDefault();
+function displayCelciusTemp() {
   let temperatureElement = document.querySelector(".main-temperature");
   fahrenheitLink.classList.remove("active");
   celciusLink.classList.add("active");
   temperatureElement.innerHTML = celciusTemperature;
 }
 
-function displayFahrenheitTemp(event) {
-  event.preventDefault();
+function displayFahrenheitTemp() {
   let temperatureElement = document.querySelector(".main-temperature");
   fahrenheitLink.classList.add("active");
   celciusLink.classList.remove("active");
@@ -200,10 +203,16 @@ function displayFahrenheitTemp(event) {
 }
 
 let celciusLink = document.querySelector("#celcius-link");
-celciusLink.addEventListener("click", displayCelciusTemp);
+celciusLink.addEventListener("click", function (event) {
+  event.preventDefault();
+  displayCelciusTemp();
+});
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemp);
+fahrenheitLink.addEventListener("click", function (event) {
+  event.preventDefault();
+  displayFahrenheitTemp();
+});
 
 getWeather("Boulder");
 // displayForecast();
