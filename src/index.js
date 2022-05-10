@@ -62,12 +62,52 @@ function getTemperature(latitude, longitude) {
   });
 }
 
+function getForecast(latitude, longitude) {
+  let apiKey = "b5b56bf4012bed80cd4ce11f2dda7ff2";
+  let units = "imperial";
+  let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+  axios.get(url).then(displayForecast);
+}
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
+  console.log(response.data);
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+
+  let forecastHTML = `<div class="row mt-5 ml-5 mr-5 mb-2">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+        <div class="col future-day">
+          <div class="day">
+            ${day}
+          </div>
+          <img
+            src="images/sun.svg"
+            alt=""
+            width="35px"
+            class="mt-1 mb-2"
+          />
+          <div class="temperature">
+            H:<span class="max-temp">62</span>º
+          </div>
+          <div class="temperature">
+            L:<span class="min-temp">54</span>º
+          </div>
+        </div>
+      `;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+  console.log(forecastHTML);
+}
 function handleUserLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   console.log(`Latitude: ${latitude}`);
   console.log(`Longitude: ${longitude}`);
   getTemperature(latitude, longitude);
+  getForecast(latitude, longitude);
 }
 
 function handleTemperature(response) {
@@ -166,3 +206,4 @@ let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemp);
 
 getWeather("Boulder");
+// displayForecast();

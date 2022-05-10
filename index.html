@@ -51,114 +51,136 @@
               </div>
             </div>
           </form>
-
-          <div class="row mt-5 align-items-center">
-            <div class="col-4 main-weather-icon">
-              <img
-                src="images/sun.svg"
-                id="main-weather-icon"
-                alt="Sunny weather"
-                width="120px"
-              />
-            </div>
-            <div class="col-4">
-              <h1 class="mb-0">
-                <span class="main-temperature"></span
-                ><span class="units"
-                  ><a href="#" id="fahrenheit-link" class="active">ºF</a> |
-                  <a href="#" id="celcius-link">ºC</a></span
-                >
-              </h1>
-              <h2 class="city mb-0"></h2>
-              <div class="format-date"></div>
-              <div id="weather-description"></div>
-            </div>
-            <div class="col-4">
-              <div id="weather-overview-details"></div>
-              <ul>
-                <li>
-                  <span>Humidity:</span>
-                  <span id="humidity" class="color"></span>
-                </li>
-                <li>
-                  <span>Precipitation:</span>
-                  <span class="color">5%</span>
-                </li>
-                <li>
-                  <span>Wind:</span>
-                  <span id="wind" class="color"></span>
-                </li>
-              </ul>
+          <div class="current-weather">
+            <div class="row mt-5 align-items-center">
+              <div class="col-4 main-weather-icon">
+                <img
+                  src="images/sun.svg"
+                  id="main-weather-icon"
+                  alt="Sunny weather"
+                  width="120px"
+                />
+              </div>
+              <div class="col-4">
+                <h1 class="mb-0">
+                  <span class="main-temperature"></span
+                  ><span class="units"
+                    ><a href="#" id="fahrenheit-link" class="active">ºF</a> |
+                    <a href="#" id="celcius-link">ºC</a></span
+                  >
+                </h1>
+                <h2 class="city mb-0"></h2>
+                <div class="format-date"></div>
+                <div id="weather-description"></div>
+              </div>
+              <div class="col-4">
+                <div id="weather-overview-details"></div>
+                <ul>
+                  <li>
+                    <span>Humidity:</span>
+                    <span id="humidity" class="color"></span>
+                  </li>
+                  <li>
+                    <span>Precipitation:</span>
+                    <span class="color">5%</span>
+                  </li>
+                  <li>
+                    <span>Wind:</span>
+                    <span id="wind" class="color"></span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-
-          <div class="row mt-5 ml-5 mr-5 mb-2">
-            <div class="col future-day day1">
-              <div class="day">Fri</div>
-              <div>
-                <img
-                  src="images/sun.svg"
-                  alt="Sunny weather"
-                  width="35px"
-                  class="mt-1 mb-2"
-                />
+          <div class="weather-forecast" id="forecast">
+            <!-- <div class="row mt-5 ml-5 mr-5 mb-2">
+              <div class="col future-day day1">
+                <div class="day">Fri</div>
+                <div>
+                  <img
+                    src="images/sun.svg"
+                    alt="Sunny weather"
+                    width="35px"
+                    class="mt-1 mb-2"
+                  />
+                </div>
+                <div class="temperature">
+                  H:<span class="max-temp">62</span>º
+                </div>
+                <div class="temperature">
+                  L:<span class="min-temp">54</span>º
+                </div>
               </div>
-              <div class="temperature">H:<span class="max-temp">62</span>º</div>
-              <div class="temperature">L:<span class="min-temp">54</span>º</div>
-            </div>
-            <div></div>
-            <div class="col future-day day2">
-              <div class="day">Sat</div>
-              <div>
-                <img
-                  src="images/cloud.svg"
-                  alt="Sunny weather"
-                  width="35px"
-                  class="mt-1 mb-2"
-                />
+              <div></div>
+              <div class="col future-day day2">
+                <div class="day">Sat</div>
+                <div>
+                  <img
+                    src="images/cloud.svg"
+                    alt="Sunny weather"
+                    width="35px"
+                    class="mt-1 mb-2"
+                  />
+                </div>
+                <div class="temperature">
+                  H:<span class="max-temp">53</span>º
+                </div>
+                <div class="temperature">
+                  L:<span class="min-temp">48</span>º
+                </div>
               </div>
-              <div class="temperature">H:<span class="max-temp">53</span>º</div>
-              <div class="temperature">L:<span class="min-temp">48</span>º</div>
-            </div>
-            <div class="col future-day day3">
-              <div class="day">Sun</div>
-              <div>
-                <img
-                  src="images/sun.svg"
-                  alt="Sunny weather"
-                  width="35px"
-                  class="mt-1 mb-2"
-                />
+              <div class="col future-day day3">
+                <div class="day">Sun</div>
+                <div>
+                  <img
+                    src="images/sun.svg"
+                    alt="Sunny weather"
+                    width="35px"
+                    class="mt-1 mb-2"
+                  />
+                </div>
+                <div class="temperature">
+                  H:<span class="max-temp">65</span>º
+                </div>
+                <div class="temperature">
+                  L:<span class="min-temp">59</span>º
+                </div>
               </div>
-              <div class="temperature">H:<span class="max-temp">65</span>º</div>
-              <div class="temperature">L:<span class="min-temp">59</span>º</div>
-            </div>
-            <div class="col future-day day4">
-              <div class="day">Mon</div>
-              <div>
-                <img
-                  src="images/storm.svg"
-                  alt="Sunny weather"
-                  width="35px"
-                  class="mt-1 mb-2"
-                />
+              <div class="col future-day day4">
+                <div class="day">Mon</div>
+                <div>
+                  <img
+                    src="images/storm.svg"
+                    alt="Sunny weather"
+                    width="35px"
+                    class="mt-1 mb-2"
+                  />
+                </div>
+                <div class="temperature">
+                  H:<span class="max-temp">66</span>º
+                </div>
+                <div class="temperature">
+                  L:<span class="min-temp">60</span>º
+                </div>
               </div>
-              <div class="temperature">H:<span class="max-temp">66</span>º</div>
-              <div class="temperature">L:<span class="min-temp">60</span>º</div>
-            </div>
-            <div class="col future-day day5">
-              <div class="day">Tues</div>
-              <div>
-                <img
-                  src="images/sun.svg"
-                  alt="Sunny weather"
-                  width="35px"
-                  class="mt-1 mb-2"
-                />
+              <div class="col future-day day5">
+                <div class="day">Tues</div>
+                <div>
+                  <img
+                    src="images/sun.svg"
+                    alt="Sunny weather"
+                    width="35px"
+                    class="mt-1 mb-2"
+                  />
+                </div>
+                <div class="temperature">
+                  H:<span class="max-temp">62</span>º
+                </div>
+                <div class="temperature">
+                  L:<span class="min-temp">57</span>º
+                </div>
               </div>
-              <div class="temperature">H:<span class="max-temp">62</span>º</div>
-              <div class="temperature">L:<span class="min-temp">57</span>º</div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
