@@ -51,10 +51,14 @@ let units = "imperial";
 function getWeather(city) {
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
   axios.get(url).then(function (response) {
-    displayCity(response);
-    displayTemperature(response);
-    displayWeatherDetails(response);
-    getForecast(response.data.coord.lat, response.data.coord.lon);
+    getForecast(response.data.coord.lat, response.data.coord.lon).then(
+      function (forecastResponse) {
+        displayCity(response);
+        displayTemperature(response);
+        displayWeatherDetails(response);
+        displayForecast(forecastResponse);
+      }
+    );
   });
 }
 
@@ -72,7 +76,7 @@ function getTemperature(latitude, longitude) {
 
 function getForecast(latitude, longitude) {
   let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
-  axios.get(url).then(displayForecast);
+  return axios.get(url);
 }
 
 function displayForecast(response) {
@@ -118,7 +122,7 @@ function handleUserLocation(position) {
   console.log(`Latitude: ${latitude}`);
   console.log(`Longitude: ${longitude}`);
   getTemperature(latitude, longitude);
-  getForecast(latitude, longitude);
+  getForecast(latitude, longitude).then(displayForecast);
 }
 
 function displayTemperature(response) {
