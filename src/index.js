@@ -1,4 +1,4 @@
-let daysOfWeek = [
+const DAYS_OF_WEEK = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -11,7 +11,7 @@ let daysOfWeek = [
 function formatDate() {
   let now = new Date();
 
-  let currentDayOfWeek = daysOfWeek[now.getDay()];
+  let currentDayOfWeek = DAYS_OF_WEEK[now.getDay()];
 
   let hours = now.getHours();
   let ampm = hours >= 12 ? "PM" : "AM";
@@ -25,15 +25,15 @@ function formatDate() {
   }
 
   let currentDate = `${currentDayOfWeek} ${currentHour}:${currentMinute} ${ampm}`;
-  console.log(currentDate);
+  // console.log(currentDate);
   return currentDate;
 }
 
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
-  console.log(day);
-  return daysOfWeek[day].substring(0, 3);
+  // console.log(day);
+  return DAYS_OF_WEEK[day].substring(0, 3);
 }
 
 let dateElement = document.querySelector(".format-date");
@@ -82,13 +82,13 @@ function getForecast(latitude, longitude) {
 function displayForecast(response) {
   // TODO: pull API forecast data here
   let forecast = response.data.daily;
-  console.log("Forecast data", forecast);
+  // console.log("Forecast data", forecast);
 
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row mt-5 ml-5 mr-5 mb-2">`;
   forecast.forEach(function (forecastDay, index) {
-    console.log(forecastDay);
+    // console.log(forecastDay);
     if (index < 5) {
       forecastHTML =
         forecastHTML +
@@ -98,7 +98,7 @@ function displayForecast(response) {
     ${formatDay(forecastDay.dt)}
     </div>
     <img
-    src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
+    src="${convertApiIconToLocalImage(forecastDay.weather[0].icon)}"
     alt="${forecastDay.weather.description}"
     width="35px"
     class="mt-1 mb-2"
@@ -116,6 +116,7 @@ function displayForecast(response) {
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
+
 function handleUserLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
@@ -155,36 +156,46 @@ function displayWeatherDetails(response) {
   let weatherDescription = response.data.weather[0].description;
   let currentWeatherDesc = document.querySelector("#weather-description");
   currentWeatherDesc.innerHTML = `${weatherDescription}`;
+  displayWeatherIcon(response.data.weather[0].icon);
+}
 
-  let weatherIcon = response.data.weather[0].icon;
+function convertApiIconToLocalImage(apiIcon) {
+  if (apiIcon == "01d" || apiIcon == "01n") {
+    return "images/sun.svg";
+  }
+  if (apiIcon == "02d" || apiIcon == "02n") {
+    return "images/partly_cloudy.svg";
+  }
+  if (apiIcon == "03d" || apiIcon == "03n") {
+    return "images/cloud.svg";
+  }
+  if (apiIcon == "04d" || apiIcon == "04n") {
+    return "images/cloud.svg";
+  }
+  if (apiIcon == "09d" || apiIcon == "09n") {
+    return "images/raining.svg";
+  }
+  if (apiIcon == "10d" || apiIcon == "10n") {
+    return "images/raining.svg";
+  }
+  if (apiIcon == "11d" || apiIcon == "11n") {
+    return "images/storm.svg";
+  }
+  if (apiIcon == "13d" || apiIcon == "13n") {
+    return "images/snowing.svg";
+  }
+  if (apiIcon == "50d" || apiIcon == "50n") {
+    return "images/mist.svg";
+  }
+
+  // Unexpected, but in case new API images are added, default to sun.
+  return "images/sun.svg";
+}
+
+function displayWeatherIcon(apiImage) {
   let currentWeatherIcon = document.querySelector("#main-weather-icon");
-  if (weatherIcon == "01d" || weatherIcon == "01n") {
-    currentWeatherIcon.setAttribute("src", "images/sun.svg");
-  }
-  if (weatherIcon == "02d" || weatherIcon == "02n") {
-    currentWeatherIcon.setAttribute("src", "images/partly_cloudy.svg");
-  }
-  if (weatherIcon == "03d" || weatherIcon == "03n") {
-    currentWeatherIcon.setAttribute("src", "images/cloud.svg");
-  }
-  if (weatherIcon == "04d" || weatherIcon == "04n") {
-    currentWeatherIcon.setAttribute("src", "images/cloud.svg");
-  }
-  if (weatherIcon == "09d" || weatherIcon == "09n") {
-    currentWeatherIcon.setAttribute("src", "images/raining.svg");
-  }
-  if (weatherIcon == "10d" || weatherIcon == "10n") {
-    currentWeatherIcon.setAttribute("src", "images/raining.svg");
-  }
-  if (weatherIcon == "11d" || weatherIcon == "11n") {
-    currentWeatherIcon.setAttribute("src", "images/storm.svg");
-  }
-  if (weatherIcon == "13d" || weatherIcon == "13n") {
-    currentWeatherIcon.setAttribute("src", "images/snowing.svg");
-  }
-  if (weatherIcon == "50d" || weatherIcon == "50n") {
-    currentWeatherIcon.setAttribute("src", "images/mist.svg");
-  }
+  const niceImagePath = convertApiIconToLocalImage(apiImage);
+  currentWeatherIcon.setAttribute("src", niceImagePath);
 }
 
 function requestLocation() {
