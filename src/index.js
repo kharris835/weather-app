@@ -42,6 +42,7 @@ dateElement.innerHTML = formatDate();
 function onSubmitCity(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input").value.trim();
+  setErrorMessage(null);
   getWeather(cityInput);
 }
 
@@ -63,12 +64,16 @@ function getWeather(city) {
       );
     })
     .catch(function () {
-      let errorField = document.querySelector(".error-field");
-      errorField.innerHTML = "Whoops! Double check your city is valid.";
+      setErrorMessage("Whoops! Double check your city is valid.");
       setTimeout(function () {
-        errorField.innerHTML = null;
+        setErrorMessage(null);
       }, 2500);
     });
+}
+
+function setErrorMessage(message) {
+  let errorField = document.querySelector(".error-field");
+  errorField.innerHTML = message;
 }
 
 let citySubmitBtn = document.querySelector("#city-submit-btn");
@@ -129,8 +134,8 @@ function displayForecast(response) {
 function handleUserLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  console.log(`Latitude: ${latitude}`);
-  console.log(`Longitude: ${longitude}`);
+  // console.log(`Latitude: ${latitude}`);
+  // console.log(`Longitude: ${longitude}`);
   getTemperature(latitude, longitude);
   getForecast(latitude, longitude).then(displayForecast);
 }
@@ -139,22 +144,22 @@ function displayTemperature(response) {
   fahrenheitTemperature = response.data.main.temp;
   celciusTemperature = Math.round(((fahrenheitTemperature - 32) * 5) / 9);
   let temperature = Math.round(fahrenheitTemperature);
-  console.log(`${temperature}ºF`);
-  console.log(fahrenheitTemperature);
-  console.log(celciusTemperature);
+  // console.log(`${temperature}ºF`);
+  // console.log(fahrenheitTemperature);
+  // console.log(celciusTemperature);
   let currentTemp = document.querySelector(".main-temperature");
   currentTemp.innerHTML = `${temperature}`;
 }
 
 function displayCity(response) {
   let city = response.data.name;
-  console.log(city);
+  // console.log(city);
   let currentCity = document.querySelector(".city");
   currentCity.innerHTML = city;
 }
 
 function displayWeatherDetails(response) {
-  console.log(response.data);
+  // console.log(response.data);
   let humidity = response.data.main.humidity;
   let currentHumidity = document.querySelector("#humidity");
   currentHumidity.innerHTML = `${humidity}%`;
