@@ -50,16 +50,25 @@ let units = "imperial";
 
 function getWeather(city) {
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
-  axios.get(url).then(function (response) {
-    getForecast(response.data.coord.lat, response.data.coord.lon).then(
-      function (forecastResponse) {
-        displayCity(response);
-        displayTemperature(response);
-        displayWeatherDetails(response);
-        displayForecast(forecastResponse);
-      }
-    );
-  });
+  axios
+    .get(url)
+    .then(function (response) {
+      getForecast(response.data.coord.lat, response.data.coord.lon).then(
+        function (forecastResponse) {
+          displayCity(response);
+          displayTemperature(response);
+          displayWeatherDetails(response);
+          displayForecast(forecastResponse);
+        }
+      );
+    })
+    .catch(function () {
+      let errorField = document.querySelector(".error-field");
+      errorField.innerHTML = "Whoops! Double check your city is valid.";
+      setTimeout(function () {
+        errorField.innerHTML = null;
+      }, 2500);
+    });
 }
 
 let citySubmitBtn = document.querySelector("#city-submit-btn");
