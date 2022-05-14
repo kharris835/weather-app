@@ -83,11 +83,12 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row mt-5 ml-5 mr-5 mb-2">`;
-  forecast.forEach(function (forecastDay) {
+  forecast.forEach(function (forecastDay, index) {
     console.log(forecastDay);
-    forecastHTML =
-      forecastHTML +
-      `
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
     <div class="col future-day">
     <div class="day">
     ${formatDay(forecastDay.dt)}
@@ -99,13 +100,14 @@ function displayForecast(response) {
     class="mt-1 mb-2"
     />
           <div class="temperature">
-            H:<span class="max-temp">${forecastDay.temp.max}</span>º
+            H:<span class="max-temp">${Math.round(forecastDay.temp.max)}</span>º
           </div>
           <div class="temperature">
-          L:<span class="min-temp">${forecastDay.temp.min}</span>º
+          L:<span class="min-temp">${Math.round(forecastDay.temp.min)}</span>º
           </div>
           </div>
           `;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
