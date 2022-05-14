@@ -1,15 +1,16 @@
+let daysOfWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 function formatDate() {
   let now = new Date();
 
-  let daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
   let currentDayOfWeek = daysOfWeek[now.getDay()];
 
   let hours = now.getHours();
@@ -26,6 +27,13 @@ function formatDate() {
   let currentDate = `${currentDayOfWeek} ${currentHour}:${currentMinute} ${ampm}`;
   console.log(currentDate);
   return currentDate;
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  console.log(day);
+  return daysOfWeek[day].substring(0, 3);
 }
 
 let dateElement = document.querySelector(".format-date");
@@ -46,10 +54,7 @@ function getWeather(city) {
     displayCity(response);
     displayTemperature(response);
     displayWeatherDetails(response);
-  });
-  let forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
-  axios.get(forecastURL).then(function (response) {
-    displayForecast(response);
+    getForecast(response.data.coord.lat, response.data.coord.lon);
   });
 }
 
@@ -66,43 +71,44 @@ function getTemperature(latitude, longitude) {
 }
 
 function getForecast(latitude, longitude) {
-  let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+  let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
   axios.get(url).then(displayForecast);
 }
 
 function displayForecast(response) {
-  let forecastElement = document.querySelector("#forecast");
   // TODO: pull API forecast data here
-  console.log("Forecast data", response.data);
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+  let forecast = response.data.daily;
+  console.log("Forecast data", forecast);
+
+  let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row mt-5 ml-5 mr-5 mb-2">`;
-  days.forEach(function (day) {
+  forecast.forEach(function (forecastDay) {
+    console.log(forecastDay);
     forecastHTML =
       forecastHTML +
       `
     <div class="col future-day">
     <div class="day">
-    ${day}
+    ${formatDay(forecastDay.dt)}
     </div>
     <img
-    src="images/sun.svg"
-    alt=""
+    src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
+    alt="${forecastDay.weather.description}"
     width="35px"
     class="mt-1 mb-2"
     />
           <div class="temperature">
-            H:<span class="max-temp">62</span>º
+            H:<span class="max-temp">${forecastDay.temp.max}</span>º
           </div>
           <div class="temperature">
-          L:<span class="min-temp">54</span>º
+          L:<span class="min-temp">${forecastDay.temp.min}</span>º
           </div>
           </div>
           `;
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-  console.log(forecastHTML);
 }
 function handleUserLocation(position) {
   let latitude = position.coords.latitude;
