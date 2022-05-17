@@ -60,6 +60,7 @@ function getWeather(city) {
           displayTemperature(response);
           displayWeatherDetails(response);
           displayForecast(forecastResponse);
+          displayPrecipitation(forecastResponse);
         }
       );
     })
@@ -163,7 +164,6 @@ function displayWeatherDetails(response) {
   let humidity = response.data.main.humidity;
   let currentHumidity = document.querySelector("#humidity");
   currentHumidity.innerHTML = `${humidity}%`;
-  // let precipitation = response.data;
   let wind = Math.round(response.data.wind.speed);
   let currentWind = document.querySelector("#wind");
   currentWind.innerHTML = `${wind}mph`;
@@ -171,6 +171,12 @@ function displayWeatherDetails(response) {
   let currentWeatherDesc = document.querySelector("#weather-description");
   currentWeatherDesc.innerHTML = `${weatherDescription}`;
   displayWeatherIcon(response.data.weather[0].icon);
+}
+
+function displayPrecipitation(forecastResponse) {
+  let precipitation = forecastResponse.data.daily[0].pop * 100;
+  let currentPrecipitation = document.querySelector("#precipitation");
+  currentPrecipitation.innerHTML = `${precipitation}%`;
 }
 
 function convertApiIconToLocalImage(apiIcon) {
@@ -230,6 +236,29 @@ function displayCelciusTemp() {
   fahrenheitLink.classList.remove("active");
   celciusLink.classList.add("active");
   temperatureElement.innerHTML = celciusTemperature;
+
+  // const maxForecastTempElements = document.querySelectorAll(".max-temp");
+  // console.log(maxForecastTempElements);
+  // maxForecastTempElements.forEach(function (maxForecastTempElement) {
+  //   console.log(maxForecastTempElement.innerHTML);
+  //   const celciusTemperature = Math.round(
+  //     ((maxForecastTempElement.innerHTML - 32) * 5) / 9
+  //   );
+
+  //   maxForecastTempElement.innerHTML = Math.round(celciusTemperature);
+  // });
+
+  // const minForecastTempElements = document.querySelectorAll(".min-temp");
+  // console.log(minForecastTempElements);
+
+  // minForecastTempElements.forEach(function (minForecastTempElement) {
+  //   console.log(minForecastTempElement.innerHTML);
+  //   const celciusTemperature = Math.round(
+  //     (minForecastTempElement.innerHTML * 9) / 5 + 32
+  //   );
+
+  //   minForecastTempElement.innerHTML = Math.round(celciusTemperature);
+  // });
 }
 
 function displayFahrenheitTemp() {
@@ -237,6 +266,30 @@ function displayFahrenheitTemp() {
   fahrenheitLink.classList.add("active");
   celciusLink.classList.remove("active");
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+
+  // const maxForecastTempElements = document.querySelectorAll(".max-temp");
+
+  // console.log(maxForecastTempElements);
+  // maxForecastTempElements.forEach(function (maxForecastTempElement) {
+  //   console.log(maxForecastTempElement.innerHTML);
+  //   const fahrenheitTemperature = Math.round(
+  //     (maxForecastTempElement.innerHTML * 9) / 5 + 32
+  //   );
+
+  //   maxForecastTempElement.innerHTML = Math.round(fahrenheitTemperature);
+  // });
+
+  // const minForecastTempElements = document.querySelectorAll(".min-temp");
+  // console.log(minForecastTempElements);
+
+  // minForecastTempElements.forEach(function (minForecastTempElement) {
+  //   console.log(minForecastTempElement.innerHTML);
+  //   const fahrenheitTemperature = Math.round(
+  //     (minForecastTempElement.innerHTML * 9) / 5 + 32
+  //   );
+
+  //   minForecastTempElement.innerHTML = Math.round(fahrenheitTemperature);
+  // });
 }
 
 let celciusLink = document.querySelector("#celcius-link");
@@ -252,4 +305,3 @@ fahrenheitLink.addEventListener("click", function (event) {
 });
 
 getWeather("Boulder");
-// displayForecast();
