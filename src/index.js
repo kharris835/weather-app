@@ -25,14 +25,12 @@ function formatDate() {
   }
 
   let currentDate = `${currentDayOfWeek} ${currentHour}:${currentMinute} ${ampm}`;
-  // console.log(currentDate);
   return currentDate;
 }
 
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
-  // console.log(day);
   return DAYS_OF_WEEK[day].substring(0, 3);
 }
 
@@ -95,15 +93,11 @@ function getForecast(latitude, longitude) {
 }
 
 function displayForecast(response) {
-  // TODO: pull API forecast data here
   let forecast = response.data.daily;
-  // console.log("Forecast data", forecast);
-
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row mt-5 ml-5 mr-5 mb-2">`;
   forecast.forEach(function (forecastDay, index) {
-    // console.log(forecastDay);
     if (index < 5) {
       forecastHTML =
         forecastHTML +
@@ -135,8 +129,6 @@ function displayForecast(response) {
 function handleUserLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  // console.log(`Latitude: ${latitude}`);
-  // console.log(`Longitude: ${longitude}`);
   getTemperature(latitude, longitude);
   getForecast(latitude, longitude).then(displayForecast);
 }
@@ -145,22 +137,17 @@ function displayTemperature(response) {
   fahrenheitTemperature = response.data.main.temp;
   celciusTemperature = Math.round(((fahrenheitTemperature - 32) * 5) / 9);
   let temperature = Math.round(fahrenheitTemperature);
-  // console.log(`${temperature}ºF`);
-  // console.log(fahrenheitTemperature);
-  // console.log(celciusTemperature);
   let currentTemp = document.querySelector(".main-temperature");
   currentTemp.innerHTML = `${temperature}`;
 }
 
 function displayCity(response) {
   let city = response.data.name;
-  // console.log(city);
   let currentCity = document.querySelector(".city");
   currentCity.innerHTML = city;
 }
 
 function displayWeatherDetails(response) {
-  // console.log(response.data);
   let humidity = response.data.main.humidity;
   let currentHumidity = document.querySelector("#humidity");
   currentHumidity.innerHTML = `${humidity}%`;
@@ -236,29 +223,6 @@ function displayCelciusTemp() {
   fahrenheitLink.classList.remove("active");
   celciusLink.classList.add("active");
   temperatureElement.innerHTML = celciusTemperature;
-
-  // const maxForecastTempElements = document.querySelectorAll(".max-temp");
-  // console.log(maxForecastTempElements);
-  // maxForecastTempElements.forEach(function (maxForecastTempElement) {
-  //   console.log(maxForecastTempElement.innerHTML);
-  //   const celciusTemperature = Math.round(
-  //     ((maxForecastTempElement.innerHTML - 32) * 5) / 9
-  //   );
-
-  //   maxForecastTempElement.innerHTML = Math.round(celciusTemperature);
-  // });
-
-  // const minForecastTempElements = document.querySelectorAll(".min-temp");
-  // console.log(minForecastTempElements);
-
-  // minForecastTempElements.forEach(function (minForecastTempElement) {
-  //   console.log(minForecastTempElement.innerHTML);
-  //   const celciusTemperature = Math.round(
-  //     (minForecastTempElement.innerHTML * 9) / 5 + 32
-  //   );
-
-  //   minForecastTempElement.innerHTML = Math.round(celciusTemperature);
-  // });
 }
 
 function displayFahrenheitTemp() {
@@ -266,30 +230,6 @@ function displayFahrenheitTemp() {
   fahrenheitLink.classList.add("active");
   celciusLink.classList.remove("active");
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
-
-  // const maxForecastTempElements = document.querySelectorAll(".max-temp");
-
-  // console.log(maxForecastTempElements);
-  // maxForecastTempElements.forEach(function (maxForecastTempElement) {
-  //   console.log(maxForecastTempElement.innerHTML);
-  //   const fahrenheitTemperature = Math.round(
-  //     (maxForecastTempElement.innerHTML * 9) / 5 + 32
-  //   );
-
-  //   maxForecastTempElement.innerHTML = Math.round(fahrenheitTemperature);
-  // });
-
-  // const minForecastTempElements = document.querySelectorAll(".min-temp");
-  // console.log(minForecastTempElements);
-
-  // minForecastTempElements.forEach(function (minForecastTempElement) {
-  //   console.log(minForecastTempElement.innerHTML);
-  //   const fahrenheitTemperature = Math.round(
-  //     (minForecastTempElement.innerHTML * 9) / 5 + 32
-  //   );
-
-  //   minForecastTempElement.innerHTML = Math.round(fahrenheitTemperature);
-  // });
 }
 
 let celciusLink = document.querySelector("#celcius-link");
