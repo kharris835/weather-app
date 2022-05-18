@@ -56,6 +56,7 @@ function getWeather(city) {
         function (forecastResponse) {
           displayCity(response);
           displayTemperature(response);
+          displayFahrenheitTemp(response);
           displayWeatherDetails(response);
           displayForecast(forecastResponse);
           displayPrecipitation(forecastResponse);
