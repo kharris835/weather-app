@@ -161,7 +161,7 @@ function displayWeatherDetails(response) {
 }
 
 function displayPrecipitation(forecastResponse) {
-  let precipitation = forecastResponse.data.daily[0].pop * 100;
+  let precipitation = Math.round(forecastResponse.data.daily[0].pop * 100);
   let currentPrecipitation = document.querySelector("#precipitation");
   currentPrecipitation.innerHTML = `${precipitation}%`;
 }
